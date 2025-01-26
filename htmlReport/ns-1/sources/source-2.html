@@ -1,0 +1,237 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ConnectFourSystemTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Test</a>
+</div>
+
+<h1>Coverage Summary for Class: ConnectFourSystemTest (Test)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConnectFourSystemTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (36/36)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ConnectFourSystemTest$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (38/38)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Test;
+&nbsp;
+&nbsp;import main.Model;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;import java.util.Arrays;
+&nbsp;
+<b class="fc">&nbsp;public class ConnectFourSystemTest {</b>
+&nbsp;
+&nbsp;    private Model model;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+&nbsp;        // Override the Model class to fix NPC behavior for testing
+<b class="fc">&nbsp;        model = new Model(6, 7, 4) {</b>
+&nbsp;            @Override
+&nbsp;            public int getNPCMove() {
+&nbsp;                // NPC always moves in column 2
+<b class="fc">&nbsp;                return 5;</b>
+&nbsp;            }
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testEndToEndGameFlow() {
+<b class="fc">&nbsp;        System.out.println(&quot;Testing End-to-End Game Flow...&quot;);</b>
+&nbsp;
+&nbsp;        // Step 1: Verify board initialization
+<b class="fc">&nbsp;        System.out.println(&quot;Initializing board...&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(6, model.getNrRows(), &quot;The board should have 6 rows.&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(7, model.getNrCols(), &quot;The board should have 7 columns.&quot;);</b>
+<b class="fc">&nbsp;        for (int row = 0; row &lt; model.getNrRows(); row++) {</b>
+<b class="fc">&nbsp;            for (int col = 0; col &lt; model.getNrCols(); col++) {</b>
+<b class="fc">&nbsp;                assertEquals(&#39; &#39;, model.getChessboard()[row][col], &quot;The board should initialize with empty cells.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Step 2: Simulate a full game
+<b class="fc">&nbsp;        int player1Move = 1;</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 3; i++) {</b>
+&nbsp;            // Player 1 makes a move
+<b class="fc">&nbsp;            assertTrue(model.isMoveValid(player1Move), &quot;Player 1&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;            model.makeMove(player1Move);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Player 1 moved to column &quot; + player1Move);</b>
+<b class="fc">&nbsp;            printBoardState();</b>
+&nbsp;
+&nbsp;            // NPC makes a move
+<b class="fc">&nbsp;            int npcMove = model.getNPCMove();</b>
+<b class="fc">&nbsp;            assertTrue(model.isMoveValid(npcMove), &quot;NPC&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;            model.makeMove(npcMove);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;NPC moved to column &quot; + npcMove);</b>
+<b class="fc">&nbsp;            printBoardState();</b>
+&nbsp;
+<b class="fc">&nbsp;            player1Move++;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Player 1&#39;s final (winning) move
+<b class="fc">&nbsp;        assertTrue(model.isMoveValid(player1Move), &quot;Player 1&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;        model.makeMove(player1Move);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Player 1 moved to column &quot; + player1Move + &quot; (Winning move)&quot;);</b>
+<b class="fc">&nbsp;        printBoardState();</b>
+&nbsp;
+&nbsp;        // Step 3: Verify win condition
+<b class="fc">&nbsp;        System.out.println(&quot;Checking win condition...&quot;);</b>
+<b class="fc">&nbsp;        assertTrue(model.isWin(), &quot;Player 1 should win with a horizontal connect 4.&quot;);</b>
+&nbsp;
+&nbsp;        // Step 4: Validate game reset
+<b class="fc">&nbsp;        System.out.println(&quot;Resetting board...&quot;);</b>
+<b class="fc">&nbsp;        model.wipeBoard();</b>
+<b class="fc">&nbsp;        for (int row = 0; row &lt; model.getNrRows(); row++) {</b>
+<b class="fc">&nbsp;            for (int col = 0; col &lt; model.getNrCols(); col++) {</b>
+<b class="fc">&nbsp;                assertEquals(&#39; &#39;, model.getChessboard()[row][col], &quot;The board should be reset to empty.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        System.out.println(&quot;Board reset successfully.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printBoardState() {
+<b class="fc">&nbsp;        System.out.println(&quot;Current board state:&quot;);</b>
+<b class="fc">&nbsp;        for (char[] row : model.getChessboard()) {</b>
+<b class="fc">&nbsp;            System.out.println(Arrays.toString(row));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-26 03:43</div>
+</div>
+</body>
+</html>

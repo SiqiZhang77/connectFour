@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FullColumnRestrictionTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Test</a>
+</div>
+
+<h1>Coverage Summary for Class: FullColumnRestrictionTest (Test)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FullColumnRestrictionTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Test;
+&nbsp;
+&nbsp;import main.Model;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class FullColumnRestrictionTest {</b>
+&nbsp;
+&nbsp;    private Model model;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+&nbsp;        // 初始化 Model，动态设置 6 行、7 列、4 连胜
+<b class="fc">&nbsp;        model = new Model(6, 7, 4);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testFullColumnRestriction() {
+<b class="fc">&nbsp;        int column = 1; // 测试第一列</b>
+<b class="fc">&nbsp;        int rows = model.getNrRows();</b>
+&nbsp;
+&nbsp;        // Step 1: 填满第一列
+<b class="fc">&nbsp;        for (int i = 0; i &lt; rows; i++) {</b>
+<b class="fc">&nbsp;            assertTrue(model.isMoveValid(column), &quot;Move should be valid in column 1 before it is full&quot;);</b>
+<b class="fc">&nbsp;            model.makeMove(column);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Step 2: 验证第一列已满
+<b class="fc">&nbsp;        assertFalse(model.isMoveValid(column), &quot;Move should not be valid in column 1 as it is full&quot;);</b>
+&nbsp;
+&nbsp;        // Step 3: 验证无效移动不会改变棋盘状态
+<b class="fc">&nbsp;        char[][] boardBeforeInvalidMove = copyBoard(model.getChessboard());</b>
+<b class="fc">&nbsp;        model.makeMove(column); // 尝试无效移动</b>
+<b class="fc">&nbsp;        char[][] boardAfterInvalidMove = copyBoard(model.getChessboard());</b>
+<b class="fc">&nbsp;        assertArrayEquals(boardBeforeInvalidMove, boardAfterInvalidMove, &quot;The board should not change after an invalid move&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Helper method to create a deep copy of the chessboard array.
+&nbsp;     *
+&nbsp;     * @param original The original chessboard.
+&nbsp;     * @return A deep copy of the chessboard.
+&nbsp;     */
+&nbsp;    private char[][] copyBoard(char[][] original) {
+<b class="fc">&nbsp;        char[][] copy = new char[original.length][];</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; original.length; i++) {</b>
+<b class="fc">&nbsp;            copy[i] = original[i].clone();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return copy;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-26 03:43</div>
+</div>
+</body>
+</html>

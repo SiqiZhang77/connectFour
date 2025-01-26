@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GameRestartTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Test</a>
+</div>
+
+<h1>Coverage Summary for Class: GameRestartTest (Test)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameRestartTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Test;
+&nbsp;
+&nbsp;import main.Model;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class GameRestartTest {</b>
+&nbsp;
+&nbsp;    private Model model;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+&nbsp;        // Initialize Model with specific parameters (e.g., 6 rows, 7 columns, 4 connections to win)
+<b class="fc">&nbsp;        model = new Model(6, 7, 4);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testGameRestartOption() {
+&nbsp;        // Simulate the game progress
+<b class="fc">&nbsp;        model.makeMove(1); // Player 1&#39;s move in column 1</b>
+<b class="fc">&nbsp;        model.makeMove(2); // Player 2&#39;s move in column 2</b>
+&nbsp;
+&nbsp;        // Verify the board state before restarting
+<b class="fc">&nbsp;        assertEquals(&#39;○&#39;, model.getChessboard()[model.getNrRows() - 1][0], &quot;Player 1 should have placed a piece in column 1&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;×&#39;, model.getChessboard()[model.getNrRows() - 1][1], &quot;Player 2 should have placed a piece in column 2&quot;);</b>
+&nbsp;
+&nbsp;        // Restart the game and clear the board
+<b class="fc">&nbsp;        model.wipeBoard();</b>
+&nbsp;
+&nbsp;        // Verify the board is cleared after restart
+<b class="fc">&nbsp;        for (int row = 0; row &lt; model.getNrRows(); row++) {</b>
+<b class="fc">&nbsp;            for (int col = 0; col &lt; model.getNrCols(); col++) {</b>
+<b class="fc">&nbsp;                assertEquals(&#39; &#39;, model.getChessboard()[row][col], &quot;The board should be reset to empty after restarting&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Simulate a new move after restarting the game
+<b class="fc">&nbsp;        model.makeMove(1); // Player 1&#39;s move in column 1 on the new board</b>
+<b class="fc">&nbsp;        assertEquals(&#39;○&#39;, model.getChessboard()[model.getNrRows() - 1][0], &quot;Player 1 should be able to play on the reset board&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testNoResidualDataAfterRestart() {
+&nbsp;        // Simulate some gameplay
+<b class="fc">&nbsp;        model.makeMove(1); // Player 1</b>
+<b class="fc">&nbsp;        model.makeMove(2); // Player 2</b>
+&nbsp;
+&nbsp;        // Verify the board is not empty before restarting
+<b class="fc">&nbsp;        assertEquals(&#39;○&#39;, model.getChessboard()[model.getNrRows() - 1][0], &quot;Player 1 should have placed a piece in column 1&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;×&#39;, model.getChessboard()[model.getNrRows() - 1][1], &quot;Player 2 should have placed a piece in column 2&quot;);</b>
+&nbsp;
+&nbsp;        // Restart the game
+<b class="fc">&nbsp;        model.wipeBoard();</b>
+&nbsp;
+&nbsp;        // Verify the board is cleared
+<b class="fc">&nbsp;        for (int row = 0; row &lt; model.getNrRows(); row++) {</b>
+<b class="fc">&nbsp;            for (int col = 0; col &lt; model.getNrCols(); col++) {</b>
+<b class="fc">&nbsp;                assertEquals(&#39; &#39;, model.getChessboard()[row][col], &quot;The board should be reset to empty&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Verify all other state variables are reset
+<b class="fc">&nbsp;        assertEquals(0, model.getPlayer(), &quot;Player turn should reset to the initial state&quot;);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-26 03:43</div>
+</div>
+</body>
+</html>

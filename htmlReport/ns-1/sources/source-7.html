@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PlayerTurnTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Test</a>
+</div>
+
+<h1>Coverage Summary for Class: PlayerTurnTest (Test)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayerTurnTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (33/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;package Test;
+&nbsp;import main.Model;
+&nbsp;import main.TextView;
+&nbsp;import main.Controller;
+&nbsp;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class PlayerTurnTest {</b>
+&nbsp;
+&nbsp;    private Model model;
+&nbsp;    private TextView view;
+&nbsp;    private Controller controller;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+&nbsp;        // Initialize Model with test-specific constructor
+<b class="fc">&nbsp;        model = new Model(6, 7, 4); // Set the board to 6 rows, 7 columns, and 4 consecutive discs to win</b>
+<b class="fc">&nbsp;        view = new TextView();</b>
+<b class="fc">&nbsp;        controller = new Controller(model, view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testPlayerTurnManagement() {
+<b class="fc">&nbsp;        System.out.println(&quot;Testing Player Turn Management...&quot;);</b>
+&nbsp;
+&nbsp;        // Initialize player turn and validate alternating turns
+<b class="fc">&nbsp;        int player1Move = 1;</b>
+<b class="fc">&nbsp;        int player2Move = 2;</b>
+&nbsp;
+&nbsp;        // Player 1 makes a valid move
+<b class="fc">&nbsp;        assertTrue(model.isMoveValid(player1Move), &quot;Player 1&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;        model.makeMove(player1Move);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Player 1 moved to column: &quot; + player1Move);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;○&#39;, model.getChessboard()[model.getNrRows() - 1][player1Move - 1], &quot;Player 1&#39;s disc should be placed correctly.&quot;);</b>
+<b class="fc">&nbsp;        printBoardState();</b>
+&nbsp;
+&nbsp;        // Player 2 (or NPC) makes a valid move
+<b class="fc">&nbsp;        assertTrue(model.isMoveValid(player2Move), &quot;Player 2&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;        model.makeMove(player2Move);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Player 2 moved to column: &quot; + player2Move);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;×&#39;, model.getChessboard()[model.getNrRows() - 1][player2Move - 1], &quot;Player 2&#39;s disc should be placed correctly.&quot;);</b>
+<b class="fc">&nbsp;        printBoardState();</b>
+&nbsp;
+&nbsp;        // Repeat for additional moves
+<b class="fc">&nbsp;        player1Move = 3;</b>
+<b class="fc">&nbsp;        assertTrue(model.isMoveValid(player1Move), &quot;Player 1&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;        model.makeMove(player1Move);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Player 1 moved to column: &quot; + player1Move);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;○&#39;, model.getChessboard()[model.getNrRows() - 1][player1Move - 1], &quot;Player 1&#39;s disc should be placed correctly.&quot;);</b>
+<b class="fc">&nbsp;        printBoardState();</b>
+&nbsp;
+<b class="fc">&nbsp;        player2Move = 4;</b>
+<b class="fc">&nbsp;        assertTrue(model.isMoveValid(player2Move), &quot;Player 2&#39;s move should be valid.&quot;);</b>
+<b class="fc">&nbsp;        model.makeMove(player2Move);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Player 2 moved to column: &quot; + player2Move);</b>
+<b class="fc">&nbsp;        assertEquals(&#39;×&#39;, model.getChessboard()[model.getNrRows() - 1][player2Move - 1], &quot;Player 2&#39;s disc should be placed correctly.&quot;);</b>
+<b class="fc">&nbsp;        printBoardState();</b>
+&nbsp;
+&nbsp;        // Ensure turns alternate correctly
+<b class="fc">&nbsp;        assertEquals(0, model.getPlayer() % 2, &quot;Player turn should alternate correctly.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printBoardState() {
+<b class="fc">&nbsp;        System.out.println(&quot;Current board state:&quot;);</b>
+<b class="fc">&nbsp;        for (char[] row : model.getChessboard()) {</b>
+<b class="fc">&nbsp;            System.out.println(Arrays.toString(row));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-26 03:43</div>
+</div>
+</body>
+</html>
